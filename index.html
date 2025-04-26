@@ -21,9 +21,29 @@
     </style>
 </head>
 <body>
+    <!-- Figma iframe -->
     <iframe 
         src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZeWFZShKd7Pu8N3Wwj8wri%2FTransparency-card%3Fpage-id%3D0%253A1%26node-id%3D1-2%26p%3Df%26viewport%3D54%252C476%252C0.2%26t%3Dz8tiRCZcXZC9N553-8%26scaling%3Dmin-zoom%26content-scaling%3Dfixed%26hide-ui%3D1" 
         allowfullscreen>
     </iframe>
+
+    <script>
+        // Record that the page was loaded
+        window.onload = function() {
+            // Try to send a message to the parent window (Qualtrics)
+            try {
+                // Send a message to the parent window that the system card was viewed
+                window.parent.postMessage({
+                    action: 'systemCardViewed',
+                    cardType: 'figma-transparency-card',
+                    timestamp: new Date().toISOString()
+                }, '*');
+                
+                console.log('View notification sent to parent');
+            } catch (e) {
+                console.error('Failed to send message:', e);
+            }
+        };
+    </script>
 </body>
 </html>
